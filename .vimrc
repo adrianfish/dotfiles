@@ -166,6 +166,8 @@ map <F6> :call HardTabs4()<CR>
 " Start with 4 space soft tabs
 call SoftTabs4()
 
+autocmd FileType javascript setlocal ts=2 sts=2 sw=2
+
 " Linebreak on 500 characters
 set lbr
 set tw=500
