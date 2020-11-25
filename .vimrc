@@ -1,3 +1,9 @@
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 call plug#begin('~/.vim/plugged')
 Plug 'akhaku/vim-java-unused-imports'
 call plug#end()
@@ -7,6 +13,10 @@ call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Sets how many lines of history VIM has to remember
 set history=500
+
+set bg=light
+
+set colorcolumn=100
 
 " Enable filetype plugins
 filetype plugin on
@@ -163,6 +173,15 @@ endfunction
 
 map <F6> :call HardTabs4()<CR>
 
+function! HardTabs2()
+    " 1 tab == hard 2 spaces
+    set noexpandtab
+    set shiftwidth=2
+    set tabstop=2
+endfunction
+
+map <F7> :call HardTabs2()<CR>
+
 " Start with 4 space soft tabs
 call SoftTabs4()
 
@@ -265,21 +284,7 @@ nmap <M-k> mz:m-2<cr>`z
 vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
-" Delete trailing white space on save, useful for some filetypes ;)
-fun! CleanExtraSpaces()
-    let save_cursor = getpos(".")
-    let old_query = getreg('/')
-    silent! %s/\s\+$//e
-    call setpos('.', save_cursor)
-    call setreg('/', old_query)
-endfun
-
 set showtabline=1
-
-if has("autocmd")
-    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
-endif
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
