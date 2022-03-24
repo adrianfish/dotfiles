@@ -6,6 +6,9 @@ endif
 
 call plug#begin('~/.vim/plugged')
 Plug 'akhaku/vim-java-unused-imports'
+""Plug 'airblade/vim-gitgutter'
+Plug 'lepture/vim-velocity'
+Plug 'kamykn/dark-theme.vim'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -17,6 +20,8 @@ set history=500
 set bg=light
 
 set colorcolumn=100
+
+set mmp=5000
 
 " Enable filetype plugins
 filetype plugin on
@@ -53,12 +58,7 @@ source $VIMRUNTIME/menu.vim
 set wildmenu
 
 " Ignore compiled files
-set wildignore=*.o,*~,*.pyc
-if has("win16") || has("win32")
-    set wildignore+=.git\*,.hg\*,.svn\*
-else
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
-endif
+set wildignore=*.o,*~,*.pyc,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 
 "Always show current position
 set ruler
@@ -74,10 +74,10 @@ set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 
 " Ignore case when searching
-set ignorecase
+"set ignorecase
 
 " When searching try to be smart about cases 
-set smartcase
+"set smartcase
 
 " Highlight search results
 set hlsearch
@@ -117,7 +117,7 @@ if $COLORTERM == 'gnome-terminal'
 endif
 
 try
-    colorscheme desert
+    colorscheme darktheme
 catch
 endtry
 
@@ -260,7 +260,6 @@ endtry
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-
 """"""""""""""""""""""""""""""
 " => Status line
 """"""""""""""""""""""""""""""
@@ -270,7 +269,6 @@ set laststatus=2
 " Format the status line
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ %h\ \ \ Line:\ %l\ \ Column:\ %c
 " set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
